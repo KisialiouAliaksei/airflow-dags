@@ -14,7 +14,7 @@ default_args = {
     'retry_delay': timedelta(minutes=1),
 }
 
-dag = DAG('Test DAG', default_args=default_args)
+dag = DAG('Test_DAG', default_args=default_args)
 
 # t1, t2, t3 and t4 are examples of tasks created using operators
 
