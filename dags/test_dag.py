@@ -17,28 +17,18 @@ default_args = {
 example_workflow = DAG('kube-operator',
                          default_args=default_args,
                          schedule_interval=timedelta(days=1))
+
 with example_workflow:
     t1 = KubernetesPodOperator(namespace='airflow',
-                               image="ubuntu:16.04",
-                               cmds=["bash", "-cx"],
-                               arguments=["echo", "hello world"],
+                               image="python:3.6",
+                               cmds=["python","-c"],
+                               arguments=["print('hello world')"],
                                labels={'runner': 'airflow'},
                                name="pod1",
                                task_id='pod1',
                                is_delete_operator_pod=True,
+			       get_logs=True,
                                hostnetwork=False,
                                )
 
-    t2 = KubernetesPodOperator(namespace='airflow',
-                               image="ubuntu:16.04",
-                               cmds=["bash", "-cx"],
-                               arguments=["echo", "hello world"],
-                               labels={'runner': 'airflow'},
-                               name="pod2",
-                               task_id='pod2',
-                               is_delete_operator_pod=True,
-                               hostnetwork=False,
-                               )
-
-
-    t1 >> t2
+    t1
