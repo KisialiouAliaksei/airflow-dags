@@ -20,7 +20,7 @@ example_workflow = DAG('kube-operator',
 
 with example_workflow:
     t1 = KubernetesPodOperator(namespace='airflow',
-                               image="python:3.6",
+                               image="python:3.6-slim",
                                cmds=["python","-c"],
                                arguments=["print('hello world')"],
                                labels={'runner': 'airflow'},
