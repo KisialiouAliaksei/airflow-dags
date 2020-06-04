@@ -28,7 +28,6 @@ with example_workflow:
                                task_id='pod1',
                                is_delete_operator_pod=False,
 			       get_logs=True,
-                               dag=dag,
 			       in_cluster=True,
                                )
 
