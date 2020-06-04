@@ -10,25 +10,25 @@ default_args = {
     "email": ["airflow@airflow.com"],
     "email_on_failure": False,
     "email_on_retry": False,
-    "retries": 1,
-    "retry_delay": timedelta(minutes=5),
+    "retries": 0 
 }
 
-example_workflow = DAG('kube-operator',
+dag = DAG('kube-operator',
                          default_args=default_args,
-                         schedule_interval=timedelta(days=1))
+                         schedule_interval=@daily)
 
-with example_workflow:
-    t1 = KubernetesPodOperator(namespace='air-eks-exp',
+task = KubernetesPodOperator(namespace='air-eks-exp',
                                image="python:3.6-slim",
                                cmds=["python","-c"],
                                arguments=["print('hello world')"],
-                               labels={'runner': 'airflow'},
+                               labels={"app": "test-creatives-task"},
+			       startup_timeout_seconds=30,
                                name="pod1",
                                task_id='pod1',
+			       hostnetwork=False,
                                is_delete_operator_pod=False,
 			       get_logs=True,
 			       in_cluster=True,
+			       do_xcom_push=False,
+			       dag=dag
                                )
-
-    t1
