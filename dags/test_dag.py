@@ -19,14 +19,14 @@ example_workflow = DAG('kube-operator',
                          schedule_interval=timedelta(days=1))
 
 with example_workflow:
-    t1 = KubernetesPodOperator(namespace='airflow',
+    t1 = KubernetesPodOperator(namespace='air-eks-exp',
                                image="python:3.6-slim",
                                cmds=["python","-c"],
                                arguments=["print('hello world')"],
                                labels={'runner': 'airflow'},
                                name="pod1",
                                task_id='pod1',
-                               is_delete_operator_pod=True,
+                               is_delete_operator_pod=False,
 			       get_logs=True,
                                hostnetwork=False,
                                )
