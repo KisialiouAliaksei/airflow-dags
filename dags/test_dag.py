@@ -13,9 +13,7 @@ default_args = {
     "retries": 0 
 }
 
-dag = DAG('kube-operator',
-                         default_args=default_args,
-                         schedule_interval=@daily)
+dag = DAG('kube-operator',default_args=default_args,schedule_interval=timedelta(days=1))
 
 task = KubernetesPodOperator(namespace='air-eks-exp',
                                image="python:3.6-slim",
@@ -30,5 +28,4 @@ task = KubernetesPodOperator(namespace='air-eks-exp',
 			       get_logs=True,
 			       in_cluster=True,
 			       do_xcom_push=False,
-			       dag=dag
-                               )
+			       dag=dag)
