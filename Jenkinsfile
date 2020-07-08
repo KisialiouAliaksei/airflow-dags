@@ -3,7 +3,7 @@ node {
 
     try {        
         stage('Test') {
-           sh 'python test.py'
+           sh 'python --version'
         }
     }
     catch(err) {
