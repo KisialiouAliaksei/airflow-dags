@@ -10,7 +10,7 @@ node {
             ])
         }
         stage('Test') {
-           sh 'python --version'
+           sh 'java --version'
         }
     }
     catch(err) {
