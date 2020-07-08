@@ -10,7 +10,7 @@ node {
             ])
         }
         stage('Test') {
-           sh 'java --version'
+           bat 'java --version'
         }
     }
     catch(err) {
