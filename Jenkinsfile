@@ -1,7 +1,14 @@
 node {
     deleteDir()
 
-    try {        
+    try {      
+        stage('Checkout') {
+            checkout([
+                $class: 'GitSCM', branches: [[name: "${params.branch}"]], doGenerateSubmoduleConfigurations: false,
+                extensions: [[$class: 'CloneOption', depth: 1, noTags: true, reference: '', shallow: true]],
+                userRemoteConfigs: [[url: 'https://github.com/KisialiouAliaksei/airflow-dags.git']]
+            ])
+        }
         stage('Test') {
            sh 'python --version'
         }
